@@ -2,21 +2,12 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>board.jpg</Source>
-      <Name>board</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\board.xnb</Output>
-      <Time>2009-11-05T21:07:24-05:00</Time>
-    </Item>
-    <Item>
       <Source>Black.png</Source>
       <Name>Black</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Black.xnb</Output>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\Black.xnb</Output>
       <Time>2009-11-05T21:12:38-05:00</Time>
     </Item>
     <Item>
@@ -25,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Black_King.xnb</Output>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\Black_King.xnb</Output>
       <Time>2009-11-05T21:20:22-05:00</Time>
     </Item>
     <Item>
@@ -34,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Red.xnb</Output>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\Red.xnb</Output>
       <Time>2009-11-05T21:12:32-05:00</Time>
     </Item>
     <Item>
@@ -43,8 +34,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Red_King.xnb</Output>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\Red_King.xnb</Output>
       <Time>2009-11-05T21:21:56-05:00</Time>
+    </Item>
+    <Item>
+      <Source>board.jpg</Source>
+      <Name>board</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\board.xnb</Output>
+      <Time>2009-11-05T21:07:24-05:00</Time>
     </Item>
     <Item>
       <Source>Mouse.png</Source>
@@ -52,7 +52,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Mouse.xnb</Output>
+      <Output>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\Mouse.xnb</Output>
       <Time>2009-11-05T21:50:20-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
@@ -60,10 +60,10 @@
       <TargetPlatform>Windows</TargetPlatform>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\Content\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Build\Checkers\Checkers\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Build\Checkers\Checkers\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Build\Checkers\Checkers\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Build\Checkers\Checkers\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

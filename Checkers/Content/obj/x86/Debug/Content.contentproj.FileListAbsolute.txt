@@ -1,1 +1,2 @@
 C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\Content\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Build\Checkers\Checkers\Content\obj\x86\Debug\ResolveAssemblyReference.cache

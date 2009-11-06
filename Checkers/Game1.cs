@@ -31,8 +31,8 @@ namespace Checkers
         int mouseX, mouseY;
 
         int activePiece = 0;
-        int activeX = -1;
-        int activeY = -1;
+        int origX = 0;
+        int origY = 0;
 
         private int[,] Board = new int[8,8];
 
@@ -114,22 +114,42 @@ namespace Checkers
             mouseY = current_mouse.Y;
 
             int x = mouseX / 64, y = mouseY / 64;
+            if (x > 7) x = 7;
+            if (x < 0) x = 0;
+            if (y > 7) y = 7;
+            if (y < 0) y = 0;
 
             LastMouseState = CurrentMouseState;
             CurrentMouseState = current_mouse.LeftButton;
 
             if (current_mouse.LeftButton.Equals(ButtonState.Pressed) && LastMouseState.Equals(ButtonState.Released))
             {
-                activePiece = Board[x, y];
-                activeX = x; activeY = y;
-                Board[x, y] = 0;
+                if (Board[x, y] == turn)
+                {
+                    activePiece = Board[x, y];
+                    origX = x; origY = y;
+                    Board[x, y] = 0;
+                }
                 //System.Console.WriteLine("The mouse button was clicked at {0} {1}", x, y);
             }
 
             if (current_mouse.LeftButton.Equals(ButtonState.Released) && LastMouseState.Equals(ButtonState.Pressed))
             {
-                Board[x, y] = activePiece;
-                activePiece = 0;
+                if (activePiece != 0 && activePiece != 99)
+                {
+                    if (Board[x, y] == 0)
+                    {
+                        Board[x, y] = activePiece;
+                        if (y == 0 || y == 7)
+                        {
+                            Board[x, y] *= 2;
+                        }
+                    }
+                    else
+                        Board[origX, origY] = activePiece;
+                    activePiece = 0;
+                    turn = -turn;
+                }
                 //System.Console.WriteLine("The mouse button was released at {0} {1}", x, y);
             }
 
@@ -155,17 +175,25 @@ namespace Checkers
                 {
                     if (Board[j,i] == 1)
                         spriteBatch.Draw(CheckerImage1, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
+                    else if (Board[j,i] == 2)
+                        spriteBatch.Draw(KingImage1, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
                     else if (Board[j,i] == -1)
                         spriteBatch.Draw(CheckerImage2, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
+                    else if (Board[j, i] == -2)
+                        spriteBatch.Draw(KingImage2, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
                 }
             }
 
-            if (activePiece == 0)
+            if (activePiece == 0 || activePiece == 99)
                 spriteBatch.Draw(Cursor, new Rectangle(mouseX, mouseY, 30, 38), Color.White);
             else if (activePiece == 1)
                 spriteBatch.Draw(CheckerImage1, new Rectangle(mouseX - 32, mouseY - 32, 64, 64), Color.White);
             else if (activePiece == -1)
                 spriteBatch.Draw(CheckerImage2, new Rectangle(mouseX - 32, mouseY - 32, 64, 64), Color.White);
+            else if (activePiece == 2)
+                spriteBatch.Draw(KingImage1, new Rectangle(mouseX - 32, mouseY - 32, 64, 64), Color.White);
+            else if (activePiece == -2)
+                spriteBatch.Draw(KingImage2, new Rectangle(mouseX - 32, mouseY - 32, 64, 64), Color.White);
 
             spriteBatch.End();
 
@@ -182,6 +210,8 @@ namespace Checkers
                 for (int j = 0; j < 7; j++)
                 {
                     board[j, i] = 0;
+                    if (i % 2 == j % 2)
+                        board[j, i] = 99;
                 }
             }
 
