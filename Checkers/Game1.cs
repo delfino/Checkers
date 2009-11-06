@@ -26,6 +26,8 @@ namespace Checkers
         private Texture2D KingImage1, KingImage2;
         private Texture2D Cursor;
         private int turn;
+        private bool multiJump = false;
+        private bool gameOver;
 
         ButtonState LastMouseState = ButtonState.Released, CurrentMouseState = ButtonState.Released;
         int mouseX, mouseY;
@@ -114,47 +116,80 @@ namespace Checkers
             mouseY = current_mouse.Y;
 
             int x = mouseX / 64, y = mouseY / 64;
-            if (x > 7) x = 7;
-            if (x < 0) x = 0;
-            if (y > 7) y = 7;
-            if (y < 0) y = 0;
+
+            if ((x > 7 || x < 0 || y > 7 || y < 0) && activePiece != 0 && activePiece != 99)
+            {
+                Board[origX, origY] = activePiece;
+                activePiece = 0;
+            }
 
             LastMouseState = CurrentMouseState;
             CurrentMouseState = current_mouse.LeftButton;
 
             if (current_mouse.LeftButton.Equals(ButtonState.Pressed) && LastMouseState.Equals(ButtonState.Released))
             {
-                if (Board[x, y] == turn)
+                if (Board[x, y] == turn || Board[x,y] == 2*turn)
                 {
                     activePiece = Board[x, y];
                     origX = x; origY = y;
                     Board[x, y] = 0;
                 }
-                //System.Console.WriteLine("The mouse button was clicked at {0} {1}", x, y);
             }
 
             if (current_mouse.LeftButton.Equals(ButtonState.Released) && LastMouseState.Equals(ButtonState.Pressed))
             {
-                if (activePiece != 0 && activePiece != 99)
+                if (isLegalMove(x, y))
                 {
-                    if (Board[x, y] == 0)
-                    {
-                        Board[x, y] = activePiece;
-                        if (y == 0 || y == 7)
-                        {
-                            Board[x, y] *= 2;
-                        }
-                    }
-                    else
-                        Board[origX, origY] = activePiece;
-                    activePiece = 0;
+                    Move(x, y);
                     turn = -turn;
                 }
-                //System.Console.WriteLine("The mouse button was released at {0} {1}", x, y);
+                else
+                    Board[origX, origY] = activePiece;
+                activePiece = 0;
             }
+        }
 
-            // Print coordinates of mouse pointer
-            //System.Console.WriteLine("This is the mouse pos X,Y {0}", current_mouse.LeftButton);
+        protected void Move(int x, int y)
+        {
+            //normal move (non-king), going forward one space diagonally left or right
+            //if (origY == y + turn && (origX + 1 == x || origX - 1 == x ))
+            //{
+                Board[x, y] = activePiece;
+                if (Math.Abs(activePiece) == 1 && ((y == 0 && activePiece > 0) || (y == 7 && activePiece < 0)))
+                {
+                    Board[x, y] *= 2;
+                }
+            //}
+
+            //normal king move
+
+            //jumping a piece: non-king
+
+            //king jump
+        }
+
+        protected bool isLegalMove(int x, int y)
+        {
+            int dx = x - origX;
+            int dy = y - origY;
+
+            //move must be diagonal
+            if (dx == 0 || dy == 0) return false;
+            if (Math.Abs(dx) != Math.Abs(dx)) return false;
+
+            //cannot move more than 2 spaces diagonally
+            if (Math.Abs(dx) > 2 || Math.Abs(dy) > 2) return false;
+
+            //cannot land on occupied square
+            if (Board[x, y] != 0) return false;
+ 
+            //must be moving with an actualy piece
+            if (Math.Abs(activePiece) != 1 && Math.Abs(activePiece) != 2) return false;
+
+            //non-kings cannot move backwards
+            if (Math.Abs(activePiece) != 2  && ( (turn < 0 && dy < 0) || (turn > 0 && dy > 0) )) return false;
+
+            return true;
         }
 
 
@@ -205,9 +240,10 @@ namespace Checkers
         protected void ResetGame(int[,] board)
         {
             turn = 1;
-            for (int i = 0; i < 7; i++)
+            gameOver = false;
+            for (int i = 0; i < 8; i++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     board[j, i] = 0;
                     if (i % 2 == j % 2)
