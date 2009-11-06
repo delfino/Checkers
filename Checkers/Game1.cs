@@ -117,16 +117,21 @@ namespace Checkers
 
             int x = mouseX / 64, y = mouseY / 64;
 
+            bool mouseOutOfBounds = false;
+
             if ((x > 7 || x < 0 || y > 7 || y < 0) && activePiece != 0 && activePiece != 99)
             {
+                mouseOutOfBounds = true;
                 Board[origX, origY] = activePiece;
                 activePiece = 0;
+                x = 0; y = 0;
             }
 
             LastMouseState = CurrentMouseState;
             CurrentMouseState = current_mouse.LeftButton;
 
-            if (current_mouse.LeftButton.Equals(ButtonState.Pressed) && LastMouseState.Equals(ButtonState.Released))
+            //OnClick
+            if (current_mouse.LeftButton.Equals(ButtonState.Pressed) && LastMouseState.Equals(ButtonState.Released) && !mouseOutOfBounds)
             {
                 if (Board[x, y] == turn || Board[x,y] == 2*turn)
                 {
@@ -136,7 +141,8 @@ namespace Checkers
                 }
             }
 
-            if (current_mouse.LeftButton.Equals(ButtonState.Released) && LastMouseState.Equals(ButtonState.Pressed))
+            //OnRelease
+            if (current_mouse.LeftButton.Equals(ButtonState.Released) && LastMouseState.Equals(ButtonState.Pressed) && !mouseOutOfBounds)
             {
                 if (isLegalMove(x, y))
                 {
