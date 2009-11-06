@@ -143,7 +143,7 @@ namespace Checkers
                     Move(x, y);
                     turn = -turn;
                 }
-                else
+                else if (activePiece != 0 && activePiece != 99)
                     Board[origX, origY] = activePiece;
                 activePiece = 0;
             }
