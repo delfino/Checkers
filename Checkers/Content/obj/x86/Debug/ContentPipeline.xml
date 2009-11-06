@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>board.jpg</Source>
+      <Name>board</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\board.xnb</Output>
+      <Time>2009-11-05T21:07:24-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Black.png</Source>
+      <Name>Black</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Black.xnb</Output>
+      <Time>2009-11-05T21:12:38-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Black_King.png</Source>
+      <Name>Black_King</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Black_King.xnb</Output>
+      <Time>2009-11-05T21:20:22-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Red.png</Source>
+      <Name>Red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Red.xnb</Output>
+      <Time>2009-11-05T21:12:32-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Red_King.png</Source>
+      <Name>Red_King</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Red_King.xnb</Output>
+      <Time>2009-11-05T21:21:56-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Mouse.png</Source>
+      <Name>Mouse</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\Mouse.xnb</Output>
+      <Time>2009-11-05T21:50:20-05:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <TargetPlatform>Windows</TargetPlatform>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\Content\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\Content\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Michael\Desktop\Stuff\Projects\TurdStorm\Checkers\Checkers\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2008-10-10T17:42:32-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2008-10-10T17:43:28-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2008-10-10T17:43:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2008-10-10T17:48:18-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2008-10-10T17:48:50-04:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\3.0.0.0__6d5c3888ef60e27d\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2009-05-20T14:03:01.67-04:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>
