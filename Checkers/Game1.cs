@@ -126,6 +126,10 @@ namespace Checkers
                 activePiece = 0;
                 x = 0; y = 0;
             }
+            else if (x > 7 || x < 0 || y > 7 || y < 0)
+            {
+                x = 0; y = 0;
+            }
 
             LastMouseState = CurrentMouseState;
             CurrentMouseState = current_mouse.LeftButton;
@@ -194,6 +198,12 @@ namespace Checkers
 
             //non-kings cannot move backwards
             if (Math.Abs(activePiece) != 2  && ( (turn < 0 && dy < 0) || (turn > 0 && dy > 0) )) return false;
+
+            if (Math.Abs(dx) == 2 && (Board[(x + origX) / 2, (y + origY) / 2] == -turn || Board[(x + origX) / 2, (y + origY) / 2] == -turn * 2))
+            {
+                Board[(x + origX) / 2, (y + origY) / 2] = 0;
+            }
+            else if (Math.Abs(dx) == 2) return false;
 
             return true;
         }
