@@ -27,7 +27,6 @@ namespace Checkers
         private Texture2D Cursor;
         private int turn;
         private bool multiJump = false;
-        private bool gameOver;
 
         ButtonState LastMouseState = ButtonState.Released, CurrentMouseState = ButtonState.Released;
         int mouseX, mouseY;
@@ -100,6 +99,7 @@ namespace Checkers
             //   this.Exit();
 
             // TODO: Add your update logic here
+            if (isGameOver(Board, activePiece)) ResetGame(Board);
             UpdateMouse();
             base.Update(gameTime);
         }
@@ -148,10 +148,11 @@ namespace Checkers
             //OnRelease
             if (current_mouse.LeftButton.Equals(ButtonState.Released) && LastMouseState.Equals(ButtonState.Pressed) && !mouseOutOfBounds)
             {
-                if (isLegalMove(x, y))
+                if (isLegalMove(origX, origY, x, y, activePiece))
                 {
                     Move(x, y);
-                    turn = -turn;
+                    if (!multiJump)
+                        turn = -turn;
                 }
                 else if (activePiece != 0 && activePiece != 99)
                     Board[origX, origY] = activePiece;
@@ -161,27 +162,29 @@ namespace Checkers
 
         protected void Move(int x, int y)
         {
-            //normal move (non-king), going forward one space diagonally left or right
-            //if (origY == y + turn && (origX + 1 == x || origX - 1 == x ))
-            //{
-                Board[x, y] = activePiece;
-                if (Math.Abs(activePiece) == 1 && ((y == 0 && activePiece > 0) || (y == 7 && activePiece < 0)))
-                {
-                    Board[x, y] *= 2;
-                }
-            //}
-
-            //normal king move
-
-            //jumping a piece: non-king
-
-            //king jump
+            int dx = x - origX, dy = y - origY;
+            Board[x, y] = activePiece;
+            if (Math.Abs(activePiece) == 1 && ((y == 0 && activePiece > 0) || (y == 7 && activePiece < 0)))
+            {
+                Board[x, y] *= 2;
+            }
+            if (Math.Abs(dx) == 2 && (Board[(x + origX) / 2, (y + origY) / 2] == -turn || Board[(x + origX) / 2, (y + origY) / 2] == -turn * 2))
+            {
+                Board[(x + origX) / 2, (y + origY) / 2] = 0;
+            }
+            if ( Math.Abs(dx) == 2 && Math.Abs(dy) == 2 && (isLegalMove(x, y, x + 2, y + 2, activePiece) || isLegalMove(x, y, x + 2, y - 2, activePiece) || isLegalMove(x, y, x - 2, y + 2, activePiece) || isLegalMove(x, y, x - 2, y - 2, activePiece)))
+                multiJump = true;
+            else
+                multiJump = false;
         }
 
-        protected bool isLegalMove(int x, int y)
+        protected bool isLegalMove(int initX, int initY, int x, int y, int piece)
         {
-            int dx = x - origX;
-            int dy = y - origY;
+            int dx = x - initX;
+            int dy = y - initY;
+
+            //if move coords are out of bounds of the board
+            if (x > 7 || x < 0 || y > 7 || y < 0) return false;
 
             //move must be diagonal
             if (dx == 0 || dy == 0) return false;
@@ -194,14 +197,15 @@ namespace Checkers
             if (Board[x, y] != 0) return false;
  
             //must be moving with an actualy piece
-            if (Math.Abs(activePiece) != 1 && Math.Abs(activePiece) != 2) return false;
+            if (Math.Abs(piece) != 1 && Math.Abs(piece) != 2) return false;
 
             //non-kings cannot move backwards
-            if (Math.Abs(activePiece) != 2  && ( (turn < 0 && dy < 0) || (turn > 0 && dy > 0) )) return false;
+            if (Math.Abs(piece) != 2  && ( (turn < 0 && dy < 0) || (turn > 0 && dy > 0) )) return false;
 
-            if (Math.Abs(dx) == 2 && (Board[(x + origX) / 2, (y + origY) / 2] == -turn || Board[(x + origX) / 2, (y + origY) / 2] == -turn * 2))
+            if (Math.Abs(dx) == 2 && (Board[(x + initX) / 2, (y + initY) / 2] == -turn || Board[(x + initX) / 2, (y + initY) / 2] == -turn * 2))
             {
-                Board[(x + origX) / 2, (y + origY) / 2] = 0;
+                return true;
+                Board[(x + initX) / 2, (y + initY) / 2] = 0;
             }
             else if (Math.Abs(dx) == 2) return false;
 
@@ -224,14 +228,22 @@ namespace Checkers
             {
                 for (int j = 0; j < 8; ++j)
                 {
-                    if (Board[j,i] == 1)
+                    if (Board[j, i] == 1)
                         spriteBatch.Draw(CheckerImage1, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
-                    else if (Board[j,i] == 2)
+                    else if (Board[j, i] == 2)
                         spriteBatch.Draw(KingImage1, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
-                    else if (Board[j,i] == -1)
+                    else if (Board[j, i] == -1)
                         spriteBatch.Draw(CheckerImage2, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
                     else if (Board[j, i] == -2)
                         spriteBatch.Draw(KingImage2, new Rectangle(j * 64, i * 64, 64, 64), Color.White);
+                    else if (isLegalMove(origX, origY, j, i, activePiece) && turn == 1 && activePiece == 1)
+                        spriteBatch.Draw(CheckerImage1, new Rectangle(j * 64, i * 64, 64, 64), new Color(100, 100, 100, 100));
+                    else if (isLegalMove(origX, origY, j, i, activePiece) && turn == -1 && activePiece == -1)
+                        spriteBatch.Draw(CheckerImage2, new Rectangle(j * 64, i * 64, 64, 64), new Color(100, 100, 100, 100));
+                    else if (isLegalMove(origX, origY, j, i, activePiece) && turn == 1 && activePiece == 2)
+                        spriteBatch.Draw(KingImage2, new Rectangle(j * 64, i * 64, 64, 64), new Color(100, 100, 100, 100));
+                    else if (isLegalMove(origX, origY, j, i, activePiece) && turn == -1 && activePiece == -2)
+                        spriteBatch.Draw(KingImage2, new Rectangle(j * 64, i * 64, 64, 64), new Color(100, 100, 100, 100));
                 }
             }
 
@@ -251,12 +263,29 @@ namespace Checkers
             base.Draw(gameTime);
         }
 
+        protected bool isGameOver(int[,] board, int activePiece)
+        {
+            bool redHasPieces = false, blackHasPieces = false, redCanMove = false, blackCanMove = false;
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (board[j, i] == 1 || board[j, i] == 2)
+                        redHasPieces = true;
+                    if (board[j, i] == -1 || board[j, i] == -2)
+                        blackHasPieces = true;
+                }
 
+            }
+
+            if ( activePiece == 0 && (!redHasPieces || !blackHasPieces)) return true;
+
+            return false;
+        }
 
         protected void ResetGame(int[,] board)
         {
             turn = 1;
-            gameOver = false;
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
